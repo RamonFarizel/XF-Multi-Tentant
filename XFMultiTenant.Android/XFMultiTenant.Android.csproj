@@ -55,6 +55,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.1" />
+    <PackageReference Include="Prism.DryIoc.Forms">
+      <Version>8.0.0.1740-pre</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -91,6 +94,10 @@
     <ProjectReference Include="..\XFMultiTenant\XFMultiTenant.csproj">
       <Project>{CE6C79F4-21CE-49D5-A771-BDFA28C54BCC}</Project>
       <Name>XFMultiTenant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XFMultiTenant.Android.Core\XFMultiTenant.Android.Core.csproj">
+      <Project>{405C7CA0-82B9-46DE-90FD-1AECFE612B7D}</Project>
+      <Name>XFMultiTenant.Android.Core</Name>
     </ProjectReference>
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -1,28 +1,38 @@
-﻿using System;
+﻿using DryIoc;
+using Prism;
+using Prism.Ioc;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using XFMultiTenant.Common;
+using XFMultiTenant.ViewModels;
 
 namespace XFMultiTenant
 {
-    public partial class App : Application
+    public partial class App
     {
-        public App()
+        public App() : this(null) { }
+
+        public App(IPlatformInitializer initializer) : base(initializer) { }
+
+        protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            InitializeTenant();
+
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
-        protected override void OnStart()
+        private void InitializeTenant()
         {
+            ITenant tenant = Container.Resolve<ITenant>();
+            Resources[Constants.PRIMARY_COLOR] = tenant.PrimaryColor;
+            Resources[Constants.SECONDARY_COLOR] = tenant.SecondaryColor;
         }
 
-        protected override void OnSleep()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-        }
-
-        protected override void OnResume()
-        {
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<MainPage,MainPageViewModel>();
         }
     }
 }
